@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:sqflite/sqflite.dart';
+
 import '../app/data/model/recipe.dart';
 import 'package:http/http.dart' as http;
 
 import '../app/data/model/search.dart';
 
 var url = "https://api.spoonacular.com";
+String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
 // String token = "9cbc1b350cd447b19561c12c27dabc6d";
-String token = "fde37335550d4d8db57a7f049210e0d6";
+// String token = "fde37335550d4d8db57a7f049210e0d6";
 
 var client = http.Client();
 
@@ -39,4 +42,15 @@ class RemoteService {
     print(json);
     return SearchRecipe.makeList(json);
   }
+
+  savedRecipes() async {
+    var db = await openDatabase('db.db', version: 1);
+    List<Map> listFav = await db.rawQuery("SELECT * FROM receitas");
+
+    return listFav;
+  }
 }
+
+/**
+ * 
+ */

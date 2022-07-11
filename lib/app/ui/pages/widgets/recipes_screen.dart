@@ -38,6 +38,13 @@ class _RecipesScreenState extends State<RecipesScreen> {
       await db.execute(
           'CREATE TABLE receitas (id INTEGER PRIMARY KEY, name TEXT, image TEXT, type TEXT, prep_time INTEGER, serving INTEGER, ingredients TEXT, instructions TEXT)');
     });
+    List<Map> list = await db
+        .rawQuery("SELECT * FROM receitas WHERE id = ?", [widget.recipe.id]);
+    if (list.isNotEmpty) {
+      setState(() {
+        firstClick = true;
+      });
+    }
   }
 
   @override

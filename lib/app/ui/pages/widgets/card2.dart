@@ -36,12 +36,6 @@ class _MainCardState extends State<MainCard> {
   }
 
   @override
-  void dispose() async {
-    super.dispose();
-    await db.close();
-  }
-
-  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;

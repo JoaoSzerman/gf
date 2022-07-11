@@ -32,15 +32,15 @@ class _IconIMGState extends State<IconIMG> {
             width: screenWidth * 0.16,
           )
         : Container(
-            child: const Center(
-              child: Text("NO IMAGE"),
-            ),
             decoration: const BoxDecoration(
-              color: Colors.amber,
+              color: Colors.white,
               shape: BoxShape.circle,
             ),
             height: screenWidth * 0.16,
             width: screenWidth * 0.16,
+            child: const Center(
+              child: Text("NO IMAGE"),
+            ),
           );
   }
 }

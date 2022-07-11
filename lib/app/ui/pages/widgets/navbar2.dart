@@ -5,6 +5,7 @@ import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 import '../../../../main.dart';
 import '../../../../services/remote_services.dart';
 import '../../../data/model/recipe.dart';
+import 'fav_screen.dart';
 
 class NavBar2 extends StatefulWidget {
   const NavBar2({
@@ -68,7 +69,16 @@ class _NavBar2State extends State<NavBar2> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavScreen(
+                      savedRecipes: post!.recipes[0],
+                    ),
+                  ),
+                );
+              },
               child: Column(
                 children: const [
                   Icon(
