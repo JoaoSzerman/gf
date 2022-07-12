@@ -25,7 +25,9 @@ class _TextFavCardState extends State<TextFavCard> {
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, screenWidth * 0.00, 0, 0),
                   child: Text(
-                    widget.savedRecipes["type"],
+                    widget.savedRecipes["type"]
+                        .split(",")[0]
+                        .replaceAll(RegExp(r"\p{P}", unicode: true), " "),
                     style: GoogleFonts.inter(
                       fontSize: screenHeight * 0.0175,
                     ),
@@ -35,8 +37,7 @@ class _TextFavCardState extends State<TextFavCard> {
           SizedBox(
             width: screenWidth * 0.7,
             height: screenHeight * 0.026,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(screenWidth * 0.04, 0, 0, 0),
+            child: Center(
               child: Text(
                 widget.savedRecipes["name"],
                 overflow: TextOverflow.ellipsis,

@@ -9,9 +9,10 @@ import 'package:http/http.dart' as http;
 import '../app/data/model/search.dart';
 
 var url = "https://api.spoonacular.com";
-String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
+// String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
 // String token = "9cbc1b350cd447b19561c12c27dabc6d";
 // String token = "fde37335550d4d8db57a7f049210e0d6";
+String token = "a707daea423444938a6624eaa75a2c74";
 
 var client = http.Client();
 
@@ -48,21 +49,23 @@ class RemoteService {
     var db = await openDatabase('db.db', version: 1);
     List<Map> listFav = await db.rawQuery("SELECT * FROM receitas");
 
+    // listFav.forEach((element) => print(element));
+
     return listFav;
   }
 
-  Future<List<GetRecipeById>> getRecipeById(savedRecip) async {
-    dynamic savedRecipes;
+  Future<GetRecipeById> getRecipeById(id) async {
     var json;
 
-    var saved = Uri.parse('$url/recipes/${"id"}/information&apiKey=$token');
+    var saved = Uri.parse('$url/recipes/$id/information?apiKey=$token');
     var respose = await client.get(saved, headers: {
       HttpHeaders.contentTypeHeader: "application/json",
     });
     if (respose.statusCode == 200) {
       json = respose.body;
     }
-    return GetRecipeById.makeList(json);
+
+    return GetRecipeById.fromJson(jsonDecode(json));
   }
 }
 

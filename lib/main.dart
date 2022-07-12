@@ -94,16 +94,6 @@ class _IFoodAPPState extends State<FoodAPP> {
                   const Text(''),
                 } else
                   const MainTitle(),
-                // if (randomRecipes == null) ...{
-                //   const Text(''),
-                // } else
-                //   Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       FavCard(recipe: randomRecipes!.recipes[0]),
-                //       FavCard(recipe: randomRecipes!.recipes[0]),
-                //     ],
-                //   ),
                 if (isLoaded == false) ...{
                   Center(
                     child: SizedBox(
@@ -121,7 +111,7 @@ class _IFoodAPPState extends State<FoodAPP> {
                 } else if (randomRecipes == null) ...{
                   const Text(''),
                 } else
-                  for (var i = 0; i < randomRecipes!.recipes.length; i++) ...{
+                  for (var i = 0; i < randomRecipes!.recipes.length; i++)
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -136,7 +126,6 @@ class _IFoodAPPState extends State<FoodAPP> {
                         recipe: randomRecipes!.recipes[i],
                       ),
                     ),
-                  },
                 if (randomRecipes == null) ...{
                   const Text(''),
                 } else

@@ -1,7 +1,7 @@
 class GetRecipeById {
   final int id;
   final String title;
-  final String image;
+  String? image;
   final int servings;
   List<dynamic> dishTypes;
   final int preparationMinutes;
@@ -11,7 +11,7 @@ class GetRecipeById {
   GetRecipeById({
     required this.id,
     required this.title,
-    required this.image,
+    this.image,
     required this.dishTypes,
     required this.servings,
     required this.preparationMinutes,
@@ -25,7 +25,7 @@ class GetRecipeById {
       list.add(GetRecipeById(
         id: data['id'],
         title: data['title'],
-        image: data['image'],
+        image: data["image"],
         dishTypes: data['dishTypes'],
         servings: data['servings'],
         preparationMinutes: data['preparationMinutes'],

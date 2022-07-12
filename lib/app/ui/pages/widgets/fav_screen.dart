@@ -7,14 +7,15 @@ import 'package:projetinho/app/data/model/checkbox_state.dart';
 import '../../../../services/remote_services.dart';
 import '../../../data/model/randon_recipe.dart';
 import 'fav_card.dart';
+import 'fav_recipe_screen.dart';
 import 'navbar.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({
     Key? key,
-    required this.savedRecipes,
+    this.savedRecipes,
   }) : super(key: key);
-  final Recipe savedRecipes;
+  final Recipe? savedRecipes;
 
   @override
   State<FavScreen> createState() => _FavScreenState();
@@ -46,15 +47,19 @@ class _FavScreenState extends State<FavScreen> {
     loadBank();
     getData();
 
-    for (var i = 0; i < widget.savedRecipes.extendedIngredients.length; i++) {
+    for (var i = 0; i < widget.savedRecipes!.extendedIngredients.length; i++) {
       notifications.add(CheckboxState(
-        title: widget.savedRecipes.extendedIngredients[i]['original'],
+        title: widget.savedRecipes!.extendedIngredients[i]['original'],
       ));
     }
   }
 
   getData() async {
     savedRecipes = await RemoteService().savedRecipes();
+    savedRecipes.forEach((e) {
+      var teste = e;
+      print(teste);
+    });
     if (savedRecipes != null) {
       setState(() {
         isLoaded = true;
@@ -75,22 +80,28 @@ class _FavScreenState extends State<FavScreen> {
                 child: GridView.count(
                   crossAxisCount: 2,
                   children: [
-                    // FavCard(savedRecipes: savedRecipes[0]),
-                    for (var i = 0; i < savedRecipes.length; i++)
-                      GestureDetector(
+                    if (savedRecipes == null) ...{
+                      const Text('dsdsd'),
+                    } else
+                      for (var i = 0; i < savedRecipes!.length; i++)
+                        GestureDetector(
                           onTap: () async {
                             var recipeNew = await RemoteService()
-                                .getRecipeById(savedRecipes[i]['id']);
+                                .getRecipeById(savedRecipes![i]['id']);
+
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    RecipesScreen(recipe: savedRecipes[i]),
+                                    FavRecipeScreen(recipe: recipeNew),
                               ),
                             );
                           },
-                          child: FavCard(savedRecipes: savedRecipes[i])),
+                          child: FavCard(
+                            savedRecipes: savedRecipes![i],
+                          ),
+                        ),
                   ],
                 ),
               ),
