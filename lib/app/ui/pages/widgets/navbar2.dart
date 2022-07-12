@@ -4,7 +4,7 @@ import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 
 import '../../../../main.dart';
 import '../../../../services/remote_services.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 import 'fav_screen.dart';
 
 class NavBar2 extends StatefulWidget {

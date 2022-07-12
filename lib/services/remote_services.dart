@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:projetinho/app/data/model/recipe.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../app/data/model/recipe.dart';
+import '../app/data/model/randon_recipe.dart';
 import 'package:http/http.dart' as http;
 
 import '../app/data/model/search.dart';
@@ -48,6 +49,20 @@ class RemoteService {
     List<Map> listFav = await db.rawQuery("SELECT * FROM receitas");
 
     return listFav;
+  }
+
+  Future<List<GetRecipeById>> getRecipeById(savedRecip) async {
+    dynamic savedRecipes;
+    var json;
+
+    var saved = Uri.parse('$url/recipes/${"id"}/information&apiKey=$token');
+    var respose = await client.get(saved, headers: {
+      HttpHeaders.contentTypeHeader: "application/json",
+    });
+    if (respose.statusCode == 200) {
+      json = respose.body;
+    }
+    return GetRecipeById.makeList(json);
   }
 }
 

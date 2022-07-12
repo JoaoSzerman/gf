@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../services/remote_services.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 import 'icon_img.dart';
 
 class ScrollMenu extends StatefulWidget {

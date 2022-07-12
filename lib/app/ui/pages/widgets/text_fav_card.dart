@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 
 class TextFavCard extends StatefulWidget {
   final dynamic savedRecipes;
@@ -17,7 +17,7 @@ class _TextFavCardState extends State<TextFavCard> {
     double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       width: screenWidth * 0.50,
-      height: screenHeight * 0.07,
+      height: screenHeight * 0.06,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

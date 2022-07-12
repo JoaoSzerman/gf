@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projetinho/app/ui/pages/widgets/find_input.dart';
 import 'package:projetinho/app/ui/pages/widgets/scroll_menu.dart';
 
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 import '../../../data/model/search.dart';
 
 class MenuJoaozin extends StatefulWidget {

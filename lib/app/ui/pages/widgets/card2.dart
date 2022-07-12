@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projetinho/app/data/model/recipe.dart';
+import 'package:projetinho/app/data/model/randon_recipe.dart';
 import 'package:projetinho/app/ui/pages/widgets/star.dart';
 import 'package:projetinho/app/ui/pages/widgets/text_card.dart';
 import 'img_card.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projetinho/app/ui/pages/widgets/fav_card.dart';
 import 'package:projetinho/app/ui/pages/widgets/menu_joaozin.dart';
 import 'package:projetinho/services/remote_services.dart';
-import 'app/data/model/recipe.dart';
+import 'app/data/model/randon_recipe.dart';
 import 'app/data/model/search.dart';
 import 'app/ui/pages/widgets/card2.dart';
 import 'app/ui/pages/widgets/load.dart';

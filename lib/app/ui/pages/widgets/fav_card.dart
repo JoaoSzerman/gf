@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projetinho/app/data/model/recipe.dart';
+import 'package:projetinho/app/data/model/randon_recipe.dart';
 import 'package:projetinho/app/ui/pages/widgets/text_fav_card.dart';
 import 'package:sqflite/sqflite.dart';
 import 'img_fav_card.dart';

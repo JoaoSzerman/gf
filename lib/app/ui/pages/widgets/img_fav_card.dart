@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projetinho/app/ui/pages/widgets/card2.dart';
 import 'package:sqflite/sqflite.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 
 class IMGFavCard extends StatefulWidget {
   final dynamic savedRecipes;

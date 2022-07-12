@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 
 import '../../../../services/remote_services.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);

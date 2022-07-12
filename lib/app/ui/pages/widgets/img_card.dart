@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 
 class IMGCard extends StatefulWidget {
   final Recipe recipe;

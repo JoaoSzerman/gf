@@ -8,7 +8,7 @@ import 'package:projetinho/app/data/model/checkbox_state.dart';
 import 'package:projetinho/app/ui/pages/widgets/star.dart';
 import 'package:projetinho/app/ui/pages/widgets/text_card.dart';
 import '../../../../main.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 import 'button_back.dart';
 import 'img_card.dart';
 import 'navbar.dart';

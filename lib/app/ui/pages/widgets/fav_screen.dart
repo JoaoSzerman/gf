@@ -1,10 +1,11 @@
+import 'package:projetinho/app/ui/pages/widgets/navbar2.dart';
 import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projetinho/app/data/model/checkbox_state.dart';
 import '../../../../services/remote_services.dart';
-import '../../../data/model/recipe.dart';
+import '../../../data/model/randon_recipe.dart';
 import 'fav_card.dart';
 import 'navbar.dart';
 
@@ -74,6 +75,7 @@ class _FavScreenState extends State<FavScreen> {
                 child: GridView.count(
                   crossAxisCount: 2,
                   children: [
+                    // FavCard(savedRecipes: savedRecipes[0]),
                     for (var i = 0; i < savedRecipes.length; i++)
                       GestureDetector(
                           onTap: () async {
@@ -83,8 +85,8 @@ class _FavScreenState extends State<FavScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RecipesScreen(
-                                    recipe: recipeNew!.recipes[0]),
+                                builder: (context) =>
+                                    RecipesScreen(recipe: savedRecipes[i]),
                               ),
                             );
                           },
@@ -92,7 +94,7 @@ class _FavScreenState extends State<FavScreen> {
                   ],
                 ),
               ),
-        bottomNavigationBar: const NavBar(),
+        bottomNavigationBar: const NavBar2(),
       ),
     );
   }
