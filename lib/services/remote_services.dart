@@ -11,8 +11,8 @@ import '../app/data/model/search.dart';
 var url = "https://api.spoonacular.com";
 // String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
 // String token = "9cbc1b350cd447b19561c12c27dabc6d";
-// String token = "fde37335550d4d8db57a7f049210e0d6";
-String token = "a707daea423444938a6624eaa75a2c74";
+String token = "fde37335550d4d8db57a7f049210e0d6";
+// String token = "a707daea423444938a6624eaa75a2c74";
 
 var client = http.Client();
 
@@ -20,7 +20,7 @@ class RemoteService {
   Future<Post?> getRandomRecipes() async {
     var json;
 
-    var randon = Uri.parse('$url/recipes/random?number=10&apiKey=$token');
+    var randon = Uri.parse('$url/recipes/random?number=1&apiKey=$token');
     var respose = await client.get(randon, headers: {
       HttpHeaders.contentTypeHeader: "application/json",
     });
@@ -34,7 +34,7 @@ class RemoteService {
     var json;
 
     var search = Uri.parse(
-        '$url/recipes/autocomplete?number=10&query=$searchText&apiKey=$token');
+        '$url/recipes/autocomplete?number=5&query=$searchText&apiKey=$token');
     var respose = await client.get(search, headers: {
       HttpHeaders.contentTypeHeader: "application/json",
     });

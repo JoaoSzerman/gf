@@ -1,3 +1,4 @@
+import 'package:projetinho/app/ui/pages/widgets/fav_title.dart';
 import 'package:projetinho/app/ui/pages/widgets/navbar2.dart';
 import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 import 'package:sqflite/sqflite.dart';
@@ -81,7 +82,7 @@ class _FavScreenState extends State<FavScreen> {
                   crossAxisCount: 2,
                   children: [
                     if (savedRecipes == null) ...{
-                      const Text('dsdsd'),
+                      const Text(''),
                     } else
                       for (var i = 0; i < savedRecipes!.length; i++)
                         GestureDetector(

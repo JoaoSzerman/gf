@@ -47,6 +47,16 @@ class _IFoodAPPState extends State<FoodAPP> {
   void initState() {
     super.initState();
     getData();
+
+    for (var i = 0; i < searchRecipies.length; i++) {
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          tileColor: Colors.blue,
+          title: Center(child: Text(searchRecipies[i].title)),
+        ),
+      );
+    }
   }
 
   getData() async {
@@ -85,11 +95,23 @@ class _IFoodAPPState extends State<FoodAPP> {
                       searchRecipies: searchRecipies,
                       function: () => setState(() {})),
                 if (searchRecipies.isNotEmpty) ...{
-                  Container(
-                    color: Colors.blue,
-                    height: 55,
-                    width: 50,
-                  )
+                  for (var i = 0; i < searchRecipies.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RecipesScreen(
+                                  recipe: randomRecipes!.recipes[i]),
+                            ),
+                          );
+                        },
+                        tileColor: Colors.blue,
+                        title: Center(child: Text(searchRecipies[i].title)),
+                      ),
+                    )
                 } else if (randomRecipes == null) ...{
                   const Text(''),
                 } else

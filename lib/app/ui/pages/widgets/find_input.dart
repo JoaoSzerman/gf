@@ -29,8 +29,11 @@ class _FindInputState extends State<FindInput> {
       width: screenWidth * 0.8,
       child: TextField(
         onChanged: (value) async {
-          var list = await RemoteService().getRecipe(value);
-          widget.searchRecipies.addAll(list);
+          widget.searchRecipies.clear();
+          if (value.length > 2) {
+            var list = await RemoteService().getRecipe(value);
+            widget.searchRecipies.addAll(list);
+          }
           widget.function();
         },
         textAlign: TextAlign.start,
