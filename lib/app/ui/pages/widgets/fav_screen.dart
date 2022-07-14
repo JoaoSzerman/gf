@@ -1,6 +1,4 @@
-import 'package:projetinho/app/ui/pages/widgets/fav_title.dart';
 import 'package:projetinho/app/ui/pages/widgets/navbar2.dart';
-import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +7,6 @@ import '../../../../services/remote_services.dart';
 import '../../../data/model/randon_recipe.dart';
 import 'fav_card.dart';
 import 'fav_recipe_screen.dart';
-import 'navbar.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({

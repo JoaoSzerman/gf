@@ -5,6 +5,7 @@ import 'package:projetinho/services/remote_services.dart';
 import 'app/data/model/randon_recipe.dart';
 import 'app/data/model/search.dart';
 import 'app/ui/pages/widgets/card2.dart';
+import 'app/ui/pages/widgets/fav_recipe_screen.dart';
 import 'app/ui/pages/widgets/load.dart';
 import 'app/ui/pages/widgets/main_title.dart';
 import 'app/ui/pages/widgets/navbar.dart';
@@ -99,17 +100,23 @@ class _IFoodAPPState extends State<FoodAPP> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        onTap: () {
+                        onTap: () async {
+                          var recipeNew = await RemoteService()
+                              .getRecipeById(searchRecipies[i].id);
+
+                          // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RecipesScreen(
-                                  recipe: randomRecipes!.recipes[i]),
+                              builder: (context) =>
+                                  FavRecipeScreen(recipe: recipeNew),
                             ),
                           );
                         },
                         tileColor: Colors.blue,
-                        title: Center(child: Text(searchRecipies[i].title)),
+                        title: Center(
+                          child: Text(searchRecipies[i].title),
+                        ),
                       ),
                     )
                 } else if (randomRecipes == null) ...{

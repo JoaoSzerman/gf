@@ -59,12 +59,12 @@ class _FavTextCardState extends State<FavTextCard> {
                         fontSize: screenHeight * 0.0175,
                       ),
                     ),
-                    // Text(
-                    //   "${widget.recipe.readyInMinutes.toString()} min",
-                    //   style: GoogleFonts.inter(
-                    //     fontSize: screenHeight * 0.0175,
-                    //   ),
-                    // ),
+                    Text(
+                      "${widget.recipe.readyInMinutes.toString()} min",
+                      style: GoogleFonts.inter(
+                        fontSize: screenHeight * 0.0175,
+                      ),
+                    ),
                   ],
                 ),
               ),

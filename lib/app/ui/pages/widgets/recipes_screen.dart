@@ -9,16 +9,18 @@ import 'package:projetinho/app/ui/pages/widgets/star.dart';
 import 'package:projetinho/app/ui/pages/widgets/text_card.dart';
 import '../../../../main.dart';
 import '../../../data/model/randon_recipe.dart';
+import '../../../data/model/search.dart';
 import 'button_back.dart';
 import 'img_card.dart';
 import 'navbar.dart';
 
 class RecipesScreen extends StatefulWidget {
-  const RecipesScreen({
+  RecipesScreen({
     Key? key,
     required this.recipe,
   }) : super(key: key);
   final Recipe recipe;
+  final List<SearchRecipe> searchRecipies = [];
 
   @override
   State<RecipesScreen> createState() => _RecipesScreenState();

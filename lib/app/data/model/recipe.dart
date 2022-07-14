@@ -7,6 +7,7 @@ class GetRecipeById {
   final int preparationMinutes;
   List<dynamic> extendedIngredients;
   List<dynamic> analyzedInstructions;
+  int readyInMinutes;
 
   GetRecipeById({
     required this.id,
@@ -17,6 +18,7 @@ class GetRecipeById {
     required this.preparationMinutes,
     required this.extendedIngredients,
     required this.analyzedInstructions,
+    required this.readyInMinutes,
   });
 
   static List<GetRecipeById> makeList(json) {
@@ -31,6 +33,7 @@ class GetRecipeById {
         preparationMinutes: data['preparationMinutes'],
         extendedIngredients: data['extendedIngredients'],
         analyzedInstructions: data['analyzedInstructions'],
+        readyInMinutes: data['readyInMinutes'],
       ));
     });
     return list;
@@ -46,17 +49,19 @@ class GetRecipeById {
       preparationMinutes: data['preparationMinutes'],
       extendedIngredients: data['extendedIngredients'],
       analyzedInstructions: data['analyzedInstructions'],
+      readyInMinutes: data['readyInMinutes'],
     );
   }
 
   static Map<String, dynamic> toJson(GetRecipeById getRecipeById) => {
         'id': getRecipeById.id,
         'title': getRecipeById.title,
-        'image': getRecipeById.title,
-        'dishTypes': getRecipeById.title,
-        'servings': getRecipeById.title,
-        'preparationMinutes': getRecipeById.title,
-        'extendedIngredients': getRecipeById.title,
-        'analyzedInstructions': getRecipeById.title,
+        'image': getRecipeById.image,
+        'dishTypes': getRecipeById.dishTypes,
+        'servings': getRecipeById.servings,
+        'preparationMinutes': getRecipeById.preparationMinutes,
+        'extendedIngredients': getRecipeById.extendedIngredients,
+        'analyzedInstructions': getRecipeById.analyzedInstructions,
+        'readyInMinutes': getRecipeById.readyInMinutes,
       };
 }
