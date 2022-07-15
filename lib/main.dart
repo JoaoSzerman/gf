@@ -39,34 +39,74 @@ class FoodAPP extends StatefulWidget {
 }
 
 class _IFoodAPPState extends State<FoodAPP> {
-  Post? randomRecipes;
+  List<Recipe> randomRecipes = [];
   var isLoaded = false;
+  var v = 5;
   final list = [];
   final List<SearchRecipe> searchRecipies = [];
+  late ScrollController _controller;
+  _scrollListener() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-
-    for (var i = 0; i < searchRecipies.length; i++) {
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListTile(
-          tileColor: Colors.blue,
-          title: Center(child: Text(searchRecipies[i].title)),
-        ),
-      );
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      getData();
+      if (isLoaded == false) {
+        Center(
+          child: SizedBox(
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.36,
+            child: const DecoratedBox(
+              decoration: BoxDecoration(shape: BoxShape.rectangle),
+              child: SpinKitPulse(
+                color: Colors.grey,
+                size: 2000,
+              ),
+            ),
+          ),
+        );
+      } else if (randomRecipes == null) {
+        const Text('');
+      }
+      {
+        for (var i = 0; i < randomRecipes.length; i++) {
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RecipesScreen(recipe: randomRecipes[i]),
+                ),
+              );
+            },
+            child: MainCard(
+              recipe: randomRecipes[i],
+            ),
+          );
+        }
+      }
     }
   }
 
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+
+    super.initState();
+    getData();
+  }
+
   getData() async {
-    randomRecipes = await RemoteService().getRandomRecipes();
-    if (randomRecipes != null) {
+    var post = await RemoteService().getRandomRecipes();
+    if (post != null) {
       setState(() {
+        randomRecipes.addAll(post.recipes);
         isLoaded = true;
       });
     }
+    print(randomRecipes.length);
   }
 
   @override
@@ -86,13 +126,14 @@ class _IFoodAPPState extends State<FoodAPP> {
       child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
+            controller: _controller,
             child: Column(
               children: [
                 if (randomRecipes == null) ...{
                   const Text(''),
                 } else
                   MenuJoaozin(
-                      recipe: randomRecipes!.recipes[0],
+                      recipe: randomRecipes[0],
                       searchRecipies: searchRecipies,
                       function: () => setState(() {})),
                 if (searchRecipies.isNotEmpty) ...{
@@ -140,19 +181,19 @@ class _IFoodAPPState extends State<FoodAPP> {
                 } else if (randomRecipes == null) ...{
                   const Text(''),
                 } else
-                  for (var i = 0; i < randomRecipes!.recipes.length; i++)
+                  for (var i = 0; i < randomRecipes.length; i++)
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RecipesScreen(
-                                recipe: randomRecipes!.recipes[i]),
+                            builder: (context) =>
+                                RecipesScreen(recipe: randomRecipes[i]),
                           ),
                         );
                       },
                       child: MainCard(
-                        recipe: randomRecipes!.recipes[i],
+                        recipe: randomRecipes[i],
                       ),
                     ),
                 if (randomRecipes == null) ...{
@@ -178,31 +219,3 @@ class _IFoodAPPState extends State<FoodAPP> {
     );
   }
 }
-
-// class RecipieSearch extends SearchDelegate<String> {
-//   @override
-//   List<Widget>? buildActions(BuildContext context) => [
-//         IconButton(
-//           icon: const Icon(Icons.clear),
-//           onPressed: () {},
-//         )
-//       ];
-
-//   @override
-//   Widget? buildLeading(BuildContext context) => IconButton(
-//         icon: const Icon(Icons.arrow_back),
-//         onPressed: () {},
-//       );
-
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     // TODO: implement buildResults
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     // TODO: implement buildSuggestions
-//     throw UnimplementedError();
-//   }
-// }
