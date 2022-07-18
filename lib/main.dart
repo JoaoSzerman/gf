@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projetinho/app/ui/pages/widgets/fav_card.dart';
 import 'package:projetinho/app/ui/pages/widgets/menu_joaozin.dart';
 import 'package:projetinho/services/remote_services.dart';
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         unselectedWidgetColor: const Color(0xFFD6A155),
-        primarySwatch: Colors.blue,
       ),
       home: const FoodAPP(),
     );
@@ -106,7 +106,6 @@ class _IFoodAPPState extends State<FoodAPP> {
         isLoaded = true;
       });
     }
-    print(randomRecipes.length);
   }
 
   @override
@@ -136,31 +135,7 @@ class _IFoodAPPState extends State<FoodAPP> {
                       recipe: randomRecipes[0],
                       searchRecipies: searchRecipies,
                       function: () => setState(() {})),
-                if (searchRecipies.isNotEmpty) ...{
-                  for (var i = 0; i < searchRecipies.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        onTap: () async {
-                          var recipeNew = await RemoteService()
-                              .getRecipeById(searchRecipies[i].id);
-
-                          // ignore: use_build_context_synchronously
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  FavRecipeScreen(recipe: recipeNew),
-                            ),
-                          );
-                        },
-                        tileColor: Colors.blue,
-                        title: Center(
-                          child: Text(searchRecipies[i].title),
-                        ),
-                      ),
-                    )
-                } else if (randomRecipes == null) ...{
+                if (randomRecipes == null) ...{
                   const Text(''),
                 } else
                   const MainTitle(),
@@ -196,20 +171,6 @@ class _IFoodAPPState extends State<FoodAPP> {
                         recipe: randomRecipes[i],
                       ),
                     ),
-                if (randomRecipes == null) ...{
-                  const Text(''),
-                } else
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyApp(),
-                        ),
-                      );
-                    },
-                    child: const Load(),
-                  ),
               ],
             ),
           ),

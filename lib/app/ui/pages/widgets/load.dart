@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/model/randon_recipe.dart';
 
-class Load extends StatelessWidget {
-  const Load({
+class Back extends StatelessWidget {
+  const Back({
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class Load extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'Reload screen',
+            'Back',
             style: TextStyle(
               fontSize: screenWidth * 0.05,
               color: Colors.white,

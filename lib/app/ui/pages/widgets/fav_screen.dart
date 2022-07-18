@@ -7,6 +7,7 @@ import '../../../../services/remote_services.dart';
 import '../../../data/model/randon_recipe.dart';
 import 'fav_card.dart';
 import 'fav_recipe_screen.dart';
+import 'load.dart';
 
 class FavScreen extends StatefulWidget {
   const FavScreen({
@@ -56,7 +57,6 @@ class _FavScreenState extends State<FavScreen> {
     savedRecipes = await RemoteService().savedRecipes();
     savedRecipes.forEach((e) {
       var teste = e;
-      print(teste);
     });
     if (savedRecipes != null) {
       setState(() {
@@ -72,8 +72,35 @@ class _FavScreenState extends State<FavScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: savedRecipes == null
-            ? const Text('')
+        body: savedRecipes == null || savedRecipes.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: SizedBox(
+                        width: screenWidth * 0.55,
+                        height: screenHeight * 0.04,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            'No saved recipes',
+                            style: GoogleFonts.inter(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Back(),
+                    ),
+                  ],
+                ),
+              )
             : SizedBox(
                 child: GridView.count(
                   crossAxisCount: 2,

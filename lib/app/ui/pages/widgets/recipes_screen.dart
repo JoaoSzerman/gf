@@ -96,7 +96,12 @@ class _RecipesScreenState extends State<RecipesScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FoodAPP(),
+                          ),
+                        );
                       },
                       child: const ButtonBack(),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projetinho/app/ui/pages/widgets/search_screen.dart';
 import 'package:projetinho/services/remote_services.dart';
 import '../../../data/model/search.dart';
 
@@ -28,14 +29,15 @@ class _FindInputState extends State<FindInput> {
       height: screenWidth * 0.1,
       width: screenWidth * 0.8,
       child: TextField(
-        onChanged: (value) async {
-          widget.searchRecipies.clear();
-          if (value.length > 2) {
-            var list = await RemoteService().getRecipe(value);
-            widget.searchRecipies.addAll(list);
-          }
-          widget.function();
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SearchScreen(
+              function: () {},
+              searchRecipies: widget.searchRecipies,
+            ),
+          ),
+        ),
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.bottom,
         decoration: InputDecoration(
