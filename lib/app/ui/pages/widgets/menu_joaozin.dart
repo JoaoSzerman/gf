@@ -6,13 +6,11 @@ import '../../../data/model/randon_recipe.dart';
 import '../../../data/model/search.dart';
 
 class MenuJoaozin extends StatefulWidget {
-  final Recipe recipe;
   final List<SearchRecipe> searchRecipies;
   final VoidCallback function;
 
   const MenuJoaozin({
     Key? key,
-    required this.recipe,
     required this.searchRecipies,
     required this.function,
   }) : super(key: key);
@@ -41,9 +39,7 @@ class _MenuJoaozinState extends State<MenuJoaozin> {
               width: MediaQuery.of(context).size.width,
               color: c,
             ),
-            ScrollMenu(
-              recipe: widget.recipe,
-            ),
+            const ScrollMenu(),
           ],
         ),
         Positioned(

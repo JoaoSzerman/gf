@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:projetinho/app/ui/pages/widgets/fav_card.dart';
 import 'package:projetinho/app/ui/pages/widgets/menu_joaozin.dart';
 import 'package:projetinho/services/remote_services.dart';
 import 'app/data/model/randon_recipe.dart';
 import 'app/data/model/search.dart';
 import 'app/ui/pages/widgets/card2.dart';
-import 'app/ui/pages/widgets/fav_recipe_screen.dart';
-import 'app/ui/pages/widgets/load.dart';
 import 'app/ui/pages/widgets/main_title.dart';
-import 'app/ui/pages/widgets/navbar.dart';
 import 'app/ui/pages/widgets/navbar2.dart';
 import 'app/ui/pages/widgets/recipes_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -132,7 +127,6 @@ class _IFoodAPPState extends State<FoodAPP> {
                   const Text(''),
                 } else
                   MenuJoaozin(
-                      recipe: randomRecipes[0],
                       searchRecipies: searchRecipies,
                       function: () => setState(() {})),
                 if (randomRecipes == null) ...{

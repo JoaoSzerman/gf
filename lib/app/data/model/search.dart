@@ -9,6 +9,7 @@ class SearchRecipe {
 
   static List<SearchRecipe> makeList(json) {
     List<SearchRecipe> list = [];
+
     json.forEach((data) {
       list.add(SearchRecipe(
         id: data['id'],

@@ -31,6 +31,7 @@ class _SearchInputState extends State<SearchInput> {
         height: screenWidth * 0.1,
         width: screenWidth,
         child: TextField(
+          autofocus: true,
           onChanged: (value) async {
             widget.searchRecipies.clear();
             if (value.length > 2) {

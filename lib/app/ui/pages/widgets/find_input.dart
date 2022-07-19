@@ -29,6 +29,7 @@ class _FindInputState extends State<FindInput> {
       height: screenWidth * 0.1,
       width: screenWidth * 0.8,
       child: TextField(
+        readOnly: true,
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(

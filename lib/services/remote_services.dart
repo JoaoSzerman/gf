@@ -9,9 +9,9 @@ import 'package:http/http.dart' as http;
 import '../app/data/model/search.dart';
 
 var url = "https://api.spoonacular.com";
+// String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
 // String token = "fde37335550d4d8db57a7f049210e0d6";
-String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
-// String token = "9cbc1b350cd447b19561c12c27dabc6d";
+String token = "9cbc1b350cd447b19561c12c27dabc6d";
 // String token = "a707daea423444938a6624eaa75a2c74";
 
 var client = http.Client();
@@ -66,6 +66,20 @@ class RemoteService {
     }
 
     return GetRecipeById.fromJson(jsonDecode(json));
+  }
+
+  Future<List<SearchRecipe>> getRecipeType(recipeType) async {
+    var json;
+
+    var randon = Uri.parse(
+        '$url/recipes/complexSearch?number=50&type=$recipeType&apiKey=$token');
+    var respose = await client.get(randon, headers: {
+      HttpHeaders.contentTypeHeader: "application/json",
+    });
+    if (respose.statusCode == 200) {
+      json = respose.body;
+    }
+    return SearchRecipe.makeList(jsonDecode(json)["results"]);
   }
 }
 
