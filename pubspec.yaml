@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   sqflite: ^2.0.3
+  fluttertoast: ^8.0.9
   http:
   flutter_spinkit:
   infinite_scroll_pagination: ^3.2.0

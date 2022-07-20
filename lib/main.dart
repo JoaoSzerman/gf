@@ -168,7 +168,11 @@ class _IFoodAPPState extends State<FoodAPP> {
               ],
             ),
           ),
-          bottomNavigationBar: const NavBar2(),
+          bottomNavigationBar: const NavBar2(
+            inHome: true,
+            inScreen: false,
+            inSurprise: false,
+          ),
         ),
       ),
     );

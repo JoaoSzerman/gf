@@ -8,8 +8,14 @@ import '../../../data/model/randon_recipe.dart';
 import 'fav_screen.dart';
 
 class NavBar2 extends StatefulWidget {
+  final bool inHome;
+  final bool inSurprise;
+  final bool inScreen;
   const NavBar2({
     Key? key,
+    required this.inHome,
+    required this.inScreen,
+    required this.inSurprise,
   }) : super(key: key);
 
   @override
@@ -48,57 +54,83 @@ class _NavBar2State extends State<NavBar2> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyApp()),
-                );
-              },
-              child: Column(
-                children: const [
-                  Icon(
-                    Icons.home,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    "Home",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavScreen(
-                      savedRecipes: post!.recipes[0],
+            widget.inHome != true
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyApp()),
+                      );
+                    },
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.home_outlined,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "Home",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
+                  )
+                : Column(
+                    children: const [
+                      Icon(
+                        Icons.home,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "Home",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
-                );
-              },
-              child: Column(
-                children: const [
-                  Icon(
-                    Icons.book,
-                    color: Colors.white,
+            widget.inScreen != true
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FavScreen(
+                            savedRecipes: post!.recipes[0],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.star_outline,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "Saved",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  )
+                : Column(
+                    children: const [
+                      Icon(
+                        Icons.star,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "Saved",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Saved",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
             if (isLoaded == false) ...{
               GestureDetector(
                 onTap: () {},
                 child: Column(
                   children: const [
                     Icon(
-                      Icons.star_rounded,
+                      Icons.help_center_outlined,
                       color: Colors.white,
                     ),
                     Text(
@@ -110,29 +142,42 @@ class _NavBar2State extends State<NavBar2> {
               ),
             } else
               for (var i = 0; i < 1; i++)
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            RecipesScreen(recipe: post!.recipes[i]),
+                widget.inScreen != true
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RecipesScreen(recipe: post!.recipes[i]),
+                            ),
+                          );
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.help_center_outlined,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "Surprise",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        children: const [
+                          Icon(
+                            Icons.help_center,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Surprise",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  child: Column(
-                    children: const [
-                      Icon(
-                        Icons.star_rounded,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Surprise",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
           ],
         ),
       ),

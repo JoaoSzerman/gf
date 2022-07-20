@@ -130,7 +130,11 @@ class _FavScreenState extends State<FavScreen> {
                   ],
                 ),
               ),
-        bottomNavigationBar: const NavBar2(),
+        bottomNavigationBar: const NavBar2(
+          inHome: false,
+          inScreen: true,
+          inSurprise: false,
+        ),
       ),
     );
   }

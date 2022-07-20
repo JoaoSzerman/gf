@@ -3,6 +3,7 @@ import 'package:projetinho/app/data/model/randon_recipe.dart';
 import 'package:projetinho/app/ui/pages/widgets/star.dart';
 import 'package:projetinho/app/ui/pages/widgets/text_card.dart';
 import 'img_card.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MainCard extends StatefulWidget {
@@ -17,7 +18,6 @@ class MainCard extends StatefulWidget {
   State<MainCard> createState() => _MainCardState();
 }
 
-bool firstClick = false;
 var db;
 
 loadBank() async {
@@ -29,10 +29,66 @@ loadBank() async {
 }
 
 class _MainCardState extends State<MainCard> {
+  bool firstClick = false;
+  late FToast fToast;
   @override
   void initState() {
     super.initState();
     loadBank();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  _showSavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe saved successfully"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  _showDisavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.redAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe successfully deleted"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 
   @override
@@ -60,13 +116,15 @@ class _MainCardState extends State<MainCard> {
                     setState(() {
                       firstClick = true;
                     });
+                    _showSavedToast();
+
                     await db.rawInsert(
                         'INSERT INTO receitas(id, name, image, type, prep_time, serving, ingredients, instructions) VALUES("${widget.recipe.id}", "${widget.recipe.title}", "${widget.recipe.image}", "${widget.recipe.dishTypes.toString()}", "${widget.recipe.preparationMinutes}","${widget.recipe.servings}","${widget.recipe.extendedIngredients.toString()}", "${widget.recipe.analyzedInstructions.toString()}")');
-                    print(await db.rawQuery('SELECT * FROM receitas'));
-                  } else {
+                  } else if (firstClick == true) {
                     setState(() {
                       firstClick = false;
                     });
+                    _showDisavedToast();
                     await db.rawDelete('DELETE from receitas WHERE id = ?',
                         [widget.recipe.id]);
                   }

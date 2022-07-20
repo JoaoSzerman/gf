@@ -3,11 +3,16 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projetinho/app/data/model/checkbox_state.dart';
+import '../../../../main.dart';
+import '../../../../services/remote_services.dart';
+import '../../../data/model/randon_recipe.dart';
 import '../../../data/model/recipe.dart';
 import 'button_back.dart';
 import 'fav_fav_star.dart';
 import 'fav_img_cad.dart';
+import 'fav_screen.dart';
 import 'fav_text_card.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FavRecipeScreen extends StatefulWidget {
   const FavRecipeScreen({
@@ -24,9 +29,12 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
   bool value = false;
   Color c = const Color(0xFFF2994A);
   final notifications = [];
+  Post? post;
+  var isLoaded = false;
   var list = [];
   bool firstClick = false;
   var db;
+  late FToast fToast;
 
   loadBank() async {
     db = await openDatabase('db.db', version: 1);
@@ -44,11 +52,75 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
   void initState() {
     super.initState();
     loadBank();
+    getData();
+    fToast = FToast();
+    fToast.init(context);
 
     for (var i = 0; i < widget.recipe.extendedIngredients.length; i++) {
       notifications.add(CheckboxState(
         title: widget.recipe.extendedIngredients[i]['original'],
       ));
+    }
+  }
+
+  _showSavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe saved successfully"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  _showDisavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.redAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe successfully deleted"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  getData() async {
+    post = await RemoteService().getRandomRecipes();
+    if (post != null) {
+      setState(() {
+        isLoaded = true;
+      });
     }
   }
 
@@ -81,7 +153,14 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FavScreen(
+                              savedRecipes: post!.recipes[0],
+                            ),
+                          ),
+                        );
                       },
                       child: const ButtonBack(),
                     ),
@@ -91,13 +170,14 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
                           setState(() {
                             firstClick = true;
                           });
+                          _showSavedToast();
                           await db.rawInsert(
                               'INSERT INTO receitas(id, name, image, type, prep_time, serving, ingredients, instructions) VALUES("${widget.recipe.id}", "${widget.recipe.title}", "${widget.recipe.image}", "${widget.recipe.dishTypes.toString()}", "${widget.recipe.preparationMinutes}","${widget.recipe.servings}","${widget.recipe.extendedIngredients.toString()}", "${widget.recipe.analyzedInstructions.toString()}")');
-                          print(await db.rawQuery('SELECT * FROM receitas'));
                         } else {
                           setState(() {
                             firstClick = false;
                           });
+                          _showDisavedToast();
                           await db.rawDelete(
                               'DELETE from receitas WHERE id = ?',
                               [widget.recipe.id]);
@@ -198,7 +278,11 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: const NavBar2(),
+        bottomNavigationBar: const NavBar2(
+          inHome: false,
+          inScreen: false,
+          inSurprise: false,
+        ),
       ),
     );
   }

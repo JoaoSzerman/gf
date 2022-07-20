@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:projetinho/app/ui/pages/widgets/navbar2.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
   var list = [];
   bool firstClick = false;
   var db;
+  late FToast fToast;
 
   loadBank() async {
     db = await openDatabase('db.db', version: 1,
@@ -53,6 +55,8 @@ class _RecipesScreenState extends State<RecipesScreen> {
   void initState() {
     super.initState();
     loadBank();
+    fToast = FToast();
+    fToast.init(context);
 
     for (var i = 0; i < widget.recipe.extendedIngredients.length; i++) {
       notifications.add(CheckboxState(
@@ -65,6 +69,58 @@ class _RecipesScreenState extends State<RecipesScreen> {
   void dispose() async {
     super.dispose();
     await db.close();
+  }
+
+  _showSavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe saved successfully"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  _showDisavedToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.redAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Recipe successfully deleted"),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 
   @override
@@ -111,13 +167,14 @@ class _RecipesScreenState extends State<RecipesScreen> {
                           setState(() {
                             firstClick = true;
                           });
+                          _showSavedToast();
                           await db.rawInsert(
                               'INSERT INTO receitas(id, name, image, type, prep_time, serving, ingredients, instructions) VALUES("${widget.recipe.id}", "${widget.recipe.title}", "${widget.recipe.image}", "${widget.recipe.dishTypes.toString()}", "${widget.recipe.preparationMinutes}","${widget.recipe.servings}","${widget.recipe.extendedIngredients.toString()}", "${widget.recipe.analyzedInstructions.toString()}")');
-                          print(await db.rawQuery('SELECT * FROM receitas'));
                         } else {
                           setState(() {
                             firstClick = false;
                           });
+                          _showDisavedToast();
                           await db.rawDelete(
                               'DELETE from receitas WHERE id = ?',
                               [widget.recipe.id]);
@@ -218,7 +275,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: const NavBar2(),
+        bottomNavigationBar: const NavBar2(
+          inHome: false,
+          inScreen: false,
+          inSurprise: true,
+        ),
       ),
     );
   }
