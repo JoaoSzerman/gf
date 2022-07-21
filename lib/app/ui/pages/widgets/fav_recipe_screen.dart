@@ -141,7 +141,16 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
                     SizedBox(
                       width: screenWidth,
                       height: screenHeight * 0.3,
-                      child: FavIMGCard(recipe: widget.recipe),
+                      child: widget.recipe.image != "null" ||
+                              widget.recipe.image != null
+                          ? FavIMGCard(recipe: widget.recipe)
+                          : SizedBox(
+                              width: screenWidth * 0.8,
+                              height: screenHeight * 0.28,
+                              child: const Center(
+                                child: Text("NO IMAGE"),
+                              ),
+                            ),
                     ),
                     Positioned(
                       left: screenWidth * 0.04,
@@ -156,9 +165,7 @@ class _FavRecipeScreenState extends State<FavRecipeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FavScreen(
-                              savedRecipes: post!.recipes[0],
-                            ),
+                            builder: (context) => const FoodAPP(),
                           ),
                         );
                       },

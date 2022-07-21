@@ -7,12 +7,13 @@ import 'package:http/http.dart' as http;
 import '../app/data/model/search.dart';
 
 var url = "https://api.spoonacular.com";
+// String token = "098fb19936bf42e6a9fd9c0f42d2bb44";
 // String token = "9cbc1b350cd447b19561c12c27dabc6d";
 // String token = "b2e4e5ccaafe4a39be0c4f8f061d41d6";
 // String token = "fde37335550d4d8db57a7f049210e0d6";
 // String token = "a707daea423444938a6624eaa75a2c74";
 
-String token = "098fb19936bf42e6a9fd9c0f42d2bb44";
+String token = "e0eff240b1c94a049347236a7dd06e25";
 
 var client = http.Client();
 

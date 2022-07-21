@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projetinho/app/ui/pages/widgets/recipes_screen.dart';
-
 import '../../../../main.dart';
 import '../../../../services/remote_services.dart';
 import '../../../data/model/randon_recipe.dart';
@@ -87,7 +85,7 @@ class _NavBar2State extends State<NavBar2> {
                       ),
                     ],
                   ),
-            widget.inScreen != true
+            widget.inScreen != true && post != null
                 ? GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -142,7 +140,7 @@ class _NavBar2State extends State<NavBar2> {
               ),
             } else
               for (var i = 0; i < 1; i++)
-                widget.inScreen != true
+                widget.inSurprise != true
                     ? GestureDetector(
                         onTap: () {
                           Navigator.push(

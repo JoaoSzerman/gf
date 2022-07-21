@@ -15,8 +15,18 @@ class _FavIMGCardState extends State<FavIMGCard> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return widget.recipe.image != "null" || widget.recipe.image != null
+    return widget.recipe.image == "null" ||
+            widget.recipe.image == null ||
+            widget.recipe.image.toString() == null ||
+            widget.recipe.image.toString() == "null"
         ? SizedBox(
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.28,
+            child: const Center(
+              child: Text("NO IMAGE"),
+            ),
+          )
+        : SizedBox(
             width: screenWidth * 0.8,
             height: screenHeight * 0.28,
             child: Image(
@@ -24,13 +34,6 @@ class _FavIMGCardState extends State<FavIMGCard> {
               image: NetworkImage(
                 widget.recipe.image.toString(),
               ),
-            ),
-          )
-        : SizedBox(
-            width: screenWidth * 0.8,
-            height: screenHeight * 0.28,
-            child: const Center(
-              child: Text("NO IMAGE"),
             ),
           );
   }
